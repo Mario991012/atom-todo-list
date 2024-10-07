@@ -1,0 +1,4 @@
+export enum RETURN_CODES {
+    GENERIC_SUCCESS = 0,
+    GENERIC_ERROR = 1000
+}

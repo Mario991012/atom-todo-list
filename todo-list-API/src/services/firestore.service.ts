@@ -1,17 +1,13 @@
 import {
-  Firestore,
   DocumentData,
   WithFieldValue,
 } from "firebase-admin/firestore";
 import {admin} from "../config/firebase.config";
 import {IFirestoreService} from "../interfaces/firestore.interface";
+import { logger } from "firebase-functions/v2";
 
 class FirestoreService implements IFirestoreService {
-  private firestore: Firestore;
-
-  constructor(firestore: Firestore) {
-    this.firestore = firestore;
-  }
+  private firestore = admin.firestore();
 
   /**
    * Retrieve all documents from a collection.
@@ -35,7 +31,7 @@ class FirestoreService implements IFirestoreService {
         ...doc.data(),
       }));
     } catch (error: any) {
-      console.error(
+      logger.error(
         `Error fetching documents from collection: ${collection}`,
         error
       );
@@ -70,7 +66,7 @@ class FirestoreService implements IFirestoreService {
         data: doc.data() as WithFieldValue<DocumentData>,
       };
     } catch (error: any) {
-      console.error(
+      logger.error(
         `Error creating document in collection: ${collection}`,
         error
       );
@@ -119,7 +115,7 @@ class FirestoreService implements IFirestoreService {
         message: `Document with ID ${id} updated successfully.`,
       };
     } catch (error: any) {
-      console.error(
+      logger.error(
         `Error updating document in collection: ${collection} with ID: ${id}`,
         error
       );
@@ -128,4 +124,4 @@ class FirestoreService implements IFirestoreService {
   }
 }
 
-export default new FirestoreService(admin.firestore());
+export default new FirestoreService();
