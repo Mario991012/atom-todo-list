@@ -6,7 +6,7 @@ import {mapGenericError} from "../common/mappers/generic-error.mapper";
 import {AuthenticationService} from "../common/providers/fb-auth.service";
 import {mapAuthResponse} from "../mappers/users.mapper";
 
-class UsersService {
+export class UsersService {
   private authService: AuthenticationService;
 
   constructor() {
@@ -20,8 +20,8 @@ class UsersService {
   async createUser(
     email: string
   ): Promise<AuthenticationDTO | GenericErrorDTO> {
-    try {
-      const result = await this.authService.createUser(email);
+		try {
+			const result = await this.authService.createUser(email);
       return mapAuthResponse(result, RETURN_CODES.GENERIC_SUCCESS);
     } catch (error: any) {
       logger.error(`Error creating user: ${error.message}`);

@@ -3,7 +3,7 @@ import UsersService from "../services/users.service";
 import {mapGenericError} from "../common/mappers/generic-error.mapper";
 import {logger} from "firebase-functions/v2";
 
-class UsersController {
+export class UsersController {
   private usersService: UsersService = new UsersService();
 
   createUser = async (req: Request, res: Response) => {
