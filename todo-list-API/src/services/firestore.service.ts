@@ -1,10 +1,9 @@
 import { DocumentData, WithFieldValue } from "firebase-admin/firestore";
-import { admin } from "../config/firebase.config";
+import { firestore } from "../config/firebase.config";
 import { IFirestoreService } from "../interfaces/firestore.interface";
 import { logger } from "firebase-functions/v2";
 
 class FirestoreService implements IFirestoreService {
-  private firestore = admin.firestore();
 
   /**
    * Retrieve all documents from a collection.
@@ -17,7 +16,7 @@ class FirestoreService implements IFirestoreService {
     }
 
     try {
-      const snapshot = await this.firestore.collection(collection).get();
+      const snapshot = await firestore.collection(collection).get();
 
       if (snapshot.empty) {
         return [];
@@ -55,7 +54,7 @@ class FirestoreService implements IFirestoreService {
     }
 
     try {
-      const docRef = await this.firestore.collection(collection).add(data);
+      const docRef = await firestore.collection(collection).add(data);
       const doc = await docRef.get();
 
       return {
@@ -96,16 +95,13 @@ class FirestoreService implements IFirestoreService {
     }
 
     try {
-      // Perform the update
-      await this.firestore.collection(collection).doc(id).update(data);
+      await firestore.collection(collection).doc(id).update(data);
 
-      // Fetch the updated document
-      const updatedDoc = await this.firestore
+      const updatedDoc = await firestore
         .collection(collection)
         .doc(id)
         .get();
 
-      // Return the updated document and a success message
       return {
         id: updatedDoc.id,
         data: updatedDoc.data() as DocumentData,

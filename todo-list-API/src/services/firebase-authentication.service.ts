@@ -1,4 +1,4 @@
-import {adminApp, firebaseClientApp} from "../config/firebase.config";
+import {adminApp, clientApp} from "../config/firebase.config";
 import {
   getAuth as getClientAuth,
   signInWithEmailAndPassword,
@@ -7,7 +7,7 @@ import {getAuth as getAdminAuth} from "firebase-admin/auth";
 import {IAuthenticationService} from "../interfaces/authentication.interface";
 
 class FirebaseAuthenticationService implements IAuthenticationService {
-  private clientAuth = getClientAuth(firebaseClientApp);
+  private clientAuth = getClientAuth(clientApp);
 
   /**
    * Create a new user using Firebase Admin SDK.
