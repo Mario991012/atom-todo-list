@@ -11,7 +11,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   async createUser(email: string): Promise<any> {
     try {
       const userRecord = await auth.createUser({
-        email, // Only requires the email now
+        email,
       });
 
       const customToken = await auth.createCustomToken(userRecord.uid);
