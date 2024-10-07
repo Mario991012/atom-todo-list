@@ -1,7 +1,7 @@
 {
   "name": "atom-todo-list",
   "version": "1.0.0",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "lint": "eslint --ext .js,.ts . --fix",
