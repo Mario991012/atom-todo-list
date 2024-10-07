@@ -14,17 +14,14 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: ["todo-list-API/tsconfig.json", "todo-list-API/tsconfig.dev.json"],
+    project: ["tsconfig.json", "tsconfig.dev.json"],
     sourceType: "module",
   },
   ignorePatterns: [
     "/dist/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
   ],
-  plugins: [
-    "@typescript-eslint",
-    "import",
-  ],
+  plugins: ["@typescript-eslint", "import"],
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
@@ -32,5 +29,6 @@ module.exports = {
     "require-jsdoc": 0, // Disable the JSDoc requirement
     "valid-jsdoc": 0, // Disable validation of JSDoc comments
     "new-cap": 0, // Disable the new-cap rule globally
+    "linebreak-style": 0,
   },
 };
