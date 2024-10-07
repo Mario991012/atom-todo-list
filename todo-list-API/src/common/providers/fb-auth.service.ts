@@ -1,5 +1,8 @@
 import {auth} from "../../config/firebase.config";
-import {IAuthenticationService} from "../interfaces/authentication.interface";
+import {
+  AuthenticationResponseModel,
+  IAuthenticationService,
+} from "../interfaces/authentication.interface";
 
 class AuthenticationService implements IAuthenticationService {
   /**
@@ -7,7 +10,7 @@ class AuthenticationService implements IAuthenticationService {
    * Only requires the email, no password or display name.
    * @param email User's email.
    */
-  async createUser(email: string): Promise<any> {
+  async createUser(email: string): Promise<AuthenticationResponseModel> {
     try {
       const userRecord = await auth.createUser({
         email,
@@ -26,7 +29,7 @@ class AuthenticationService implements IAuthenticationService {
    * No password validation is needed.
    * @param email User's email.
    */
-  async signIn(email: string): Promise<any> {
+  async signIn(email: string): Promise<AuthenticationResponseModel> {
     try {
       const userRecord = await auth.getUserByEmail(email);
 
@@ -43,6 +46,4 @@ class AuthenticationService implements IAuthenticationService {
   }
 }
 
-export {
-  AuthenticationService,
-};
+export {AuthenticationService};
