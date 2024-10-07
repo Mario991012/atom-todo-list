@@ -21,13 +21,14 @@ module.exports = {
     "/dist/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
   ],
-  plugins: [
-    "@typescript-eslint",
-    "import",
-  ],
+  plugins: ["@typescript-eslint", "import"],
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
     "indent": ["error", 2],
+    "require-jsdoc": 0, // Disable the JSDoc requirement
+    "valid-jsdoc": 0, // Disable validation of JSDoc comments
+    "new-cap": 0, // Disable the new-cap rule globally
+    "linebreak-style": 0,
   },
 };
