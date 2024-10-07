@@ -10,10 +10,10 @@ app.use(express.json());
 app.use("/api", routes);
 logger.info("Routes imported");
 
-if (process.env.ENV === "local") {
-  const port = process.env.PORT || 8080;
-  app.listen(port, () => {
-    logger.info(`Server is running on port ${port}`);
-  });
-}
+// if (process.env.ENV === "local") {
+//   const port = process.env.PORT || 8080;
+//   app.listen(port, () => {
+//     logger.info(`Server is running on port ${port}`);
+//   });
+// }
 exports.api = onRequest(app);

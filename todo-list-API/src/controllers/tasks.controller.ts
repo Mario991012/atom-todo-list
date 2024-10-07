@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-import FirestoreService from "../services/firestore.service";
-import {FIRESTORE_COLLECTIONS} from "../constants/tables";
-import {RETURN_CODES} from "../constants/common";
+import FirestoreService from "../common/providers/firestore.service";
+import {FIRESTORE_COLLECTIONS} from "../common/constants/tables";
+import {RETURN_CODES} from "../common/constants/common";
 import {logger} from "firebase-functions/v2";
 
 export class TasksController {
