@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import UsersService from "../services/users.service";
 import {mapGenericError} from "../common/mappers/generic-error.mapper";
-import { logger } from "firebase-functions/v2";
+import {logger} from "firebase-functions/v2";
 
 class UsersController {
   private usersService: UsersService = new UsersService();
