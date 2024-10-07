@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import FirestoreService from "../common/services/firestore.service";
+import FirestoreService from "../common/providers/firestore.service";
 import {FIRESTORE_COLLECTIONS} from "../common/constants/tables";
 import {RETURN_CODES} from "../common/constants/common";
 import {logger} from "firebase-functions/v2";
