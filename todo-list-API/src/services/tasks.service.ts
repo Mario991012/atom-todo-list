@@ -7,7 +7,7 @@ import {
 } from "../mappers/tasks.mapper";
 import {TaskModel} from "../common/interfaces/task.interface";
 
-class TasksService {
+export class TasksService {
   async getAllTasks() {
     const tasks = await FirestoreService.getAll(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION
