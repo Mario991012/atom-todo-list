@@ -1,0 +1,3 @@
+export enum FIRESTORE_COLLECTIONS {
+    TASKS_COLLECTION = "tasks"
+}

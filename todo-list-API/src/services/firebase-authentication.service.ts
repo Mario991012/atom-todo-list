@@ -1,4 +1,4 @@
-import {admin, firebaseClientApp} from "../config/firebase.config";
+import {adminApp, firebaseClientApp} from "../config/firebase.config";
 import {
   getAuth as getClientAuth,
   signInWithEmailAndPassword,
@@ -21,13 +21,13 @@ class FirebaseAuthenticationService implements IAuthenticationService {
     displayName?: string
   ): Promise<any> {
     try {
-      const userRecord = await getAdminAuth().createUser({
+      const userRecord = await getAdminAuth(adminApp).createUser({
         email,
         password,
         displayName,
       });
 
-      const customToken = await getAdminAuth().createCustomToken(
+      const customToken = await getAdminAuth(adminApp).createCustomToken(
         userRecord.uid
       );
 
