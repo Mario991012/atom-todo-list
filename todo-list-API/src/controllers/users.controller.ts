@@ -1,52 +1,40 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import UsersService from "../services/users.service";
 
 class UsersController {
-  private usersService: UsersService;
+  private usersService: UsersService = new UsersService();
 
-  constructor() {
-    this.usersService = new UsersService();
-  }
-
-  /**
-   * Controller method to create a user.
-   * @param req HTTP request object.
-   * @param res HTTP response object.
-   */
-  async createUser(req: Request, res: Response) {
-    const { email } = req.body;
+  createUser = async (req: Request, res: Response) => {
+    const {email} = req.body;
 
     if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+      res.status(400).json({message: "Email is required"});
+      return;
     }
 
     try {
       const result = await this.usersService.createUser(email);
-      return res.status(201).json(result);
+      res.status(201).json(result);
     } catch (error: any) {
-      return res.status(500).json({ message: error.message });
+      res.status(500).json({message: error.message});
     }
-  }
+  };
 
-  /**
-   * Controller method to find a user by email.
-   * @param req HTTP request object.
-   * @param res HTTP response object.
-   */
-  async findUser(req: Request, res: Response) {
-    const { email } = req.params;
+  findUser = async (req: Request, res: Response) => {
+    const {email} = req.params;
 
     if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+      res.status(400).json({message: "Email is required"});
+      return;
     }
 
     try {
       const user = await this.usersService.findUserByEmail(email);
-      return res.status(200).json(user);
+      res.status(200).json(user);
     } catch (error: any) {
-      return res.status(404).json({ message: error.message });
+      res.status(404).json({message: error.message});
     }
-  }
+  };
 }
 
 export default new UsersController();

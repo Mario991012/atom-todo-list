@@ -1,8 +1,7 @@
-import { auth } from "../../config/firebase.config";
-import { IAuthenticationService } from "../interfaces/authentication.interface";
+import {auth} from "../../config/firebase.config";
+import {IAuthenticationService} from "../interfaces/authentication.interface";
 
-class FirebaseAuthenticationService implements IAuthenticationService {
-
+class AuthenticationService implements IAuthenticationService {
   /**
    * Create a new user using Firebase Admin SDK.
    * Only requires the email, no password or display name.
@@ -16,7 +15,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
 
       const customToken = await auth.createCustomToken(userRecord.uid);
 
-      return { user: userRecord, token: customToken };
+      return {user: userRecord, token: customToken};
     } catch (error: any) {
       throw new Error(`Error creating user: ${error.message}`);
     }
@@ -37,11 +36,13 @@ class FirebaseAuthenticationService implements IAuthenticationService {
 
       const customToken = await auth.createCustomToken(userRecord.uid);
 
-      return { user: userRecord, token: customToken };
+      return {user: userRecord, token: customToken};
     } catch (error: any) {
       throw new Error(`Error during login: ${error.message}`);
     }
   }
 }
 
-export default FirebaseAuthenticationService;
+export {
+  AuthenticationService,
+};

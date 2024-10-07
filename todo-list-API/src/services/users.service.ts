@@ -1,11 +1,11 @@
-import FirebaseAuthenticationService from "../common/providers/firebase-authentication.service";
-import { auth } from "../config/firebase.config";
+import {AuthenticationService} from "../common/providers/fb-auth.service";
+import {auth} from "../config/firebase.config";
 
 class UsersService {
-  private authService: FirebaseAuthenticationService;
+  private authService: AuthenticationService;
 
   constructor() {
-    this.authService = new FirebaseAuthenticationService();
+    this.authService = new AuthenticationService();
   }
 
   /**

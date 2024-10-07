@@ -1,10 +1,9 @@
-import { DocumentData, WithFieldValue } from "firebase-admin/firestore";
-import { firestore } from "../../config/firebase.config";
-import { IFirestoreService } from "../interfaces/firestore.interface";
-import { logger } from "firebase-functions/v2";
+import {DocumentData, WithFieldValue} from "firebase-admin/firestore";
+import {firestore} from "../../config/firebase.config";
+import {IFirestoreService} from "../interfaces/firestore.interface";
+import {logger} from "firebase-functions/v2";
 
 class FirestoreService implements IFirestoreService {
-
   /**
    * Retrieve all documents from a collection.
    * @param collection Collection name.
