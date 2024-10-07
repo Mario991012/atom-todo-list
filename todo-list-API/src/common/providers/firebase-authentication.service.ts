@@ -1,60 +1,43 @@
-import {adminApp, clientApp} from "../../config/firebase.config";
-import {
-  getAuth as getClientAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import {getAuth as getAdminAuth} from "firebase-admin/auth";
-import {IAuthenticationService} from "../interfaces/authentication.interface";
+import { auth } from "../../config/firebase.config";
+import { IAuthenticationService } from "../interfaces/authentication.interface";
 
 class FirebaseAuthenticationService implements IAuthenticationService {
-  private clientAuth = getClientAuth(clientApp);
 
   /**
    * Create a new user using Firebase Admin SDK.
+   * Only requires the email, no password or display name.
    * @param email User's email.
-   * @param password User's password.
-   * @param displayName Optional display name.
    */
-  async createUser(
-    email: string,
-    password: string,
-    displayName?: string
-  ): Promise<any> {
+  async createUser(email: string): Promise<any> {
     try {
-      const userRecord = await getAdminAuth(adminApp).createUser({
-        email,
-        password,
-        displayName,
+      const userRecord = await auth.createUser({
+        email, // Only requires the email now
       });
 
-      const customToken = await getAdminAuth(adminApp).createCustomToken(
-        userRecord.uid
-      );
+      const customToken = await auth.createCustomToken(userRecord.uid);
 
-      return {user: userRecord, token: customToken};
+      return { user: userRecord, token: customToken };
     } catch (error: any) {
       throw new Error(`Error creating user: ${error.message}`);
     }
   }
 
   /**
-   * Sign in a user using Firebase Client SDK.
+   * Sign in a user by checking if they exist in Firebase.
+   * No password validation is needed.
    * @param email User's email.
-   * @param password User's password.
    */
-  async signInWithEmailAndPassword(
-    email: string,
-    password: string
-  ): Promise<any> {
+  async signIn(email: string): Promise<any> {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        this.clientAuth,
-        email,
-        password
-      );
-      const idToken = await userCredential.user.getIdToken();
+      const userRecord = await auth.getUserByEmail(email);
 
-      return {idToken, user: userCredential.user};
+      if (!userRecord) {
+        throw new Error("User does not exist");
+      }
+
+      const customToken = await auth.createCustomToken(userRecord.uid);
+
+      return { user: userRecord, token: customToken };
     } catch (error: any) {
       throw new Error(`Error during login: ${error.message}`);
     }

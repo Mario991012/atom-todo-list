@@ -18,5 +18,6 @@ const clientApp = initializeClientApp({
 });
 
 const auth = admin.auth();
+auth.getU
 const firestore = admin.firestore();
 export {adminApp, firestore, auth, clientApp};
