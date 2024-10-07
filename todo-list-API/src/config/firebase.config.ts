@@ -5,11 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const adminApp = admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: process.env.PROJECT_ID,
-    privateKey: process.env.PRIVATE_KEY?.replace(/\\n/gm, "\n"),
-    clientEmail: process.env.CLIENT_EMAIL,
-  }),
+  credential: admin.credential.applicationDefault()
 });
 
 const firebaseClientConfig = {

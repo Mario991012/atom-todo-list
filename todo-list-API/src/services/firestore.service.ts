@@ -1,9 +1,6 @@
-import {
-  DocumentData,
-  WithFieldValue,
-} from "firebase-admin/firestore";
-import {admin} from "../config/firebase.config";
-import {IFirestoreService} from "../interfaces/firestore.interface";
+import { DocumentData, WithFieldValue } from "firebase-admin/firestore";
+import { admin } from "../config/firebase.config";
+import { IFirestoreService } from "../interfaces/firestore.interface";
 import { logger } from "firebase-functions/v2";
 
 class FirestoreService implements IFirestoreService {

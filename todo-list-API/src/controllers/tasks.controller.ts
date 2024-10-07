@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import FirestoreService from "../services/firestore.service";
-import { FIRESTORE_COLLECTIONS } from "../constants/tables";
-import { RETURN_CODES } from "../constants/common";
-import { logger } from "firebase-functions/v2";
+import {FIRESTORE_COLLECTIONS} from "../constants/tables";
+import {RETURN_CODES} from "../constants/common";
+import {logger} from "firebase-functions/v2";
 
 export class TasksController {
   async getAllTasks(req: Request, res: Response) {
@@ -19,12 +19,12 @@ export class TasksController {
     } catch (error: any) {
       res
         .status(500)
-        .json({ error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR });
+        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
     }
   }
 
   async createTask(req: Request, res: Response) {
-    const { title, description } = req.body;
+    const {title, description} = req.body;
     const task = {
       title,
       description,
@@ -46,16 +46,16 @@ export class TasksController {
         data: newTask,
       });
     } catch (error: any) {
-        logger.error("Error ocurred", error)
+      logger.error("Error ocurred", error);
       res
         .status(500)
-        .json({ error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR });
+        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
     }
   }
 
   async updateTask(req: Request, res: Response) {
-    const { id } = req.params;
-    const { title, description, completed } = req.body;
+    const {id} = req.params;
+    const {title, description, completed} = req.body;
 
     try {
       await FirestoreService.update("tasks", id, {
@@ -70,18 +70,18 @@ export class TasksController {
     } catch (error: any) {
       res
         .status(500)
-        .json({ error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR });
+        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
     }
   }
 
   async deleteTask(req: Request, res: Response) {
-    const { id } = req.params;
+    const {id} = req.params;
 
     try {
       await FirestoreService.update(
         FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
         id,
-        { isDeleted: true }
+        {isDeleted: true}
       );
       res.status(200).json({
         returnCode: RETURN_CODES.GENERIC_SUCCESS,
@@ -90,7 +90,7 @@ export class TasksController {
     } catch (error: any) {
       res
         .status(500)
-        .json({ error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR });
+        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
     }
   }
 }
