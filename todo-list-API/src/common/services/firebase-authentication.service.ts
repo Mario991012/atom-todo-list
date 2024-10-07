@@ -1,4 +1,4 @@
-import {adminApp, clientApp} from "../config/firebase.config";
+import {adminApp, clientApp} from "../../config/firebase.config";
 import {
   getAuth as getClientAuth,
   signInWithEmailAndPassword,

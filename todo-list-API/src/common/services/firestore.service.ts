@@ -1,5 +1,5 @@
 import { DocumentData, WithFieldValue } from "firebase-admin/firestore";
-import { firestore } from "../config/firebase.config";
+import { firestore } from "../../config/firebase.config";
 import { IFirestoreService } from "../interfaces/firestore.interface";
 import { logger } from "firebase-functions/v2";
 
