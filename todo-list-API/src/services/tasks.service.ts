@@ -1,35 +1,44 @@
 import FirestoreService from "../common/providers/firestore.service";
-import { FIRESTORE_COLLECTIONS } from "../common/constants/tables";
+import {FIRESTORE_COLLECTIONS} from "../common/constants/tables";
+import {
+  mapCreatedTaskResponse,
+  mapTaskListResponse,
+  mapUpdatedTaskResponse,
+} from "../mappers/tasks.mapper";
+import {TaskModel} from "../common/interfaces/task.interface";
 
 class TasksService {
   async getAllTasks() {
     const tasks = await FirestoreService.getAll(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION
     );
-    return tasks.filter((task: any) => !task.isDeleted);
+    return mapTaskListResponse(tasks.filter((task: any) => !task.isDeleted));
   }
 
   async createTask(task: any) {
-    return await FirestoreService.create(
+    const createdTask = (await FirestoreService.create(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
       task
-    );
+    )) as unknown as TaskModel;
+    return mapCreatedTaskResponse(createdTask);
   }
 
   async updateTask(id: string, updatedTask: any) {
-    return await FirestoreService.update(
+    await FirestoreService.update(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
       id,
       updatedTask
     );
+    return mapUpdatedTaskResponse();
   }
 
   async deleteTask(id: string) {
-    return await FirestoreService.update(
+    await FirestoreService.update(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
       id,
-      { isDeleted: true }
+      {isDeleted: true}
     );
+    return mapUpdatedTaskResponse();
   }
 }
 
