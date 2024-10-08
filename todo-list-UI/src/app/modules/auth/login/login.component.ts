@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginUserResponse } from '../../../shared/interfaces/user.interface';
-import { AuthService } from '../../../core/services/auth/auth.service';
+import { UsersService } from '../../../core/services/users/users.service';
 import { NotificationService } from '../../../core/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -33,7 +33,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: UsersService,
     private router: Router,
     private notificationService: NotificationService,
     private dialog: MatDialog
