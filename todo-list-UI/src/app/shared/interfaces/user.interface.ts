@@ -6,5 +6,6 @@ export interface LoginUserResponse {
       disabled: boolean;
       token: string;
     };
+    error?: any
   }
   
