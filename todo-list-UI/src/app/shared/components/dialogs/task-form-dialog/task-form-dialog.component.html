@@ -15,7 +15,7 @@
 			<!-- Task Description -->
 			<mat-form-field appearance="fill" class="full-width">
 				<mat-label>Description</mat-label>
-				<textarea matInput formControlName="description" placeholder="Enter task description"></textarea>
+				<input matInput formControlName="description" placeholder="Enter task description" />
 				<mat-error *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched">
 					Description is required
 				</mat-error>
