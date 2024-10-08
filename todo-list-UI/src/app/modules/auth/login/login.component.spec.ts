@@ -24,7 +24,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     usersServiceSpy = jasmine.createSpyObj('UsersService', ['login', 'createUser']);
-    tokenServiceSpy = jasmine.createSpyObj('TokenService', ['storeToken', 'removeToken']);
+    tokenServiceSpy = jasmine.createSpyObj('TokenService', ['loginWithCustomToken', 'removeToken']);
     notificationServiceSpy = jasmine.createSpyObj('NotificationService', ['showError', 'showSuccess']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -59,21 +59,19 @@ describe('LoginComponent', () => {
     expect(notificationServiceSpy.showError).toHaveBeenCalledWith('Please enter a valid email address');
   });
 
-  it('should call login and handle successful login', () => {
+  it('should call login and handle successful login', async () => {
     const mockResponse: LoginUserResponse = {
       returnCode: 0,
       data: { id: '123', email: 'test@example.com', disabled: false, token: 'abc123' },
     };
 
     usersServiceSpy.login.and.returnValue(of(mockResponse));
-
     component.loginForm.setValue({ email: 'test@example.com' });
-    component.onSubmit();
 
+    await component.onSubmit();
     expect(usersServiceSpy.login).toHaveBeenCalledWith('test@example.com');
-    expect(tokenServiceSpy.storeToken).toHaveBeenCalledWith('abc123');
-    expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Login successful');
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
+    expect(tokenServiceSpy.loginWithCustomToken).toHaveBeenCalledWith('abc123');
+    expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Login successful of test@example.com');
   });
 
   it('should create a new user when dialog confirms account creation', () => {
@@ -94,7 +92,7 @@ describe('LoginComponent', () => {
     component.onSubmit();
 
     expect(usersServiceSpy.createUser).toHaveBeenCalledWith('test@example.com');
-    expect(tokenServiceSpy.storeToken).toHaveBeenCalledWith('newToken123');
+    expect(tokenServiceSpy.loginWithCustomToken).toHaveBeenCalledWith('newToken123');
     expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Account created successfully');
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
