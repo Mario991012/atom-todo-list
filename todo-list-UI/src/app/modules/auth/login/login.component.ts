@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';  // Import Dialog
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginUserResponse } from '../../../shared/interfaces/user.interface';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { NotificationService } from '../../../core/services/notification/notification.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +36,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
+    private dialog: MatDialog
   ) {
     this.loginForm = this.buildForm();
   }
@@ -57,8 +60,13 @@ export class LoginComponent {
     this.authService.login(email).subscribe({
       next: (response: LoginUserResponse) => {
         if (response.returnCode !== 0) {
-          this.notificationService.showError(response.error?.message || 'Login failed');
-          this.loading.set(false);
+          const dialogRef = this.dialog.open(ConfirmDialogComponent);
+          dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+              return this.createUser(email);
+            }
+            this.loading.set(false);
+          });
         } else {
           this.authService.storeToken(response.data.token);
           this.notificationService.showSuccess('Login successful');
@@ -68,6 +76,20 @@ export class LoginComponent {
       error: () => {
         this.loading.set(false);
         this.notificationService.showError('Invalid login or user not found');
+      },
+    });
+  }
+
+  private createUser(email: string) {
+    this.authService.createUser(email).subscribe({
+      next: (response) => {
+        this.authService.storeToken(response.data.token);
+        this.notificationService.showSuccess('Account created successfully');
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.notificationService.showError('Failed to create an account');
       },
     });
   }
