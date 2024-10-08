@@ -1,5 +1,5 @@
-import { AuthenticationService } from "../../../common/providers/fb-auth.service";
-import { auth } from "../../../config/firebase.config";
+import {AuthenticationService} from "../../../common/providers/fb-auth.service";
+import {auth} from "../../../config/firebase.config";
 
 jest.mock("../../../config/firebase.config", () => ({
   auth: {
@@ -18,7 +18,7 @@ describe("AuthenticationService", () => {
   });
 
   describe("createUser", () => {
-    it("should create a new user and return the AuthenticationResponseModel", async () => {
+    it("should create a new user and return the model", async () => {
       const email = "test@example.com";
       const userRecordMock = {
         uid: "12345",
@@ -34,9 +34,9 @@ describe("AuthenticationService", () => {
 
       const result = await authenticationService.createUser(email);
 
-      expect(auth.createUser).toHaveBeenCalledWith({ email });
+      expect(auth.createUser).toHaveBeenCalledWith({email});
       expect(auth.createCustomToken).toHaveBeenCalledWith(userRecordMock.uid);
-      expect(result).toEqual({ user: userRecordMock, token: customTokenMock });
+      expect(result).toEqual({user: userRecordMock, token: customTokenMock});
     });
 
     it("should throw an error if user creation fails", async () => {
@@ -48,13 +48,13 @@ describe("AuthenticationService", () => {
         `Error creating user: ${errorMessage}`
       );
 
-      expect(auth.createUser).toHaveBeenCalledWith({ email });
+      expect(auth.createUser).toHaveBeenCalledWith({email});
       expect(auth.createCustomToken).not.toHaveBeenCalled();
     });
   });
 
   describe("signIn", () => {
-    it("should sign in the user if they exist and return the AuthenticationResponseModel", async () => {
+    it("should login the user if exist and return the model", async () => {
       const email = "test@example.com";
       const userRecordMock = {
         uid: "67890",
@@ -72,25 +72,29 @@ describe("AuthenticationService", () => {
 
       expect(auth.getUserByEmail).toHaveBeenCalledWith(email);
       expect(auth.createCustomToken).toHaveBeenCalledWith(userRecordMock.uid);
-      expect(result).toEqual({ user: userRecordMock, token: customTokenMock });
+      expect(result).toEqual({user: userRecordMock, token: customTokenMock});
     });
 
     it("should throw an error if the user does not exist", async () => {
       const email = "test@example.com";
-      (auth.getUserByEmail as jest.Mock).mockRejectedValue(new Error("User not found"));
+      (auth.getUserByEmail as jest.Mock).mockRejectedValue(
+        new Error("User not found")
+      );
 
       await expect(authenticationService.signIn(email)).rejects.toThrow(
-        `Error during login: User not found`
+        "Error during login: User not found"
       );
 
       expect(auth.getUserByEmail).toHaveBeenCalledWith(email);
       expect(auth.createCustomToken).not.toHaveBeenCalled();
     });
 
-    it("should throw an error if there is an error during sign-in", async () => {
+    it("should throw an error if error during sign-in", async () => {
       const email = "test@example.com";
       const errorMessage = "Error during login";
-      (auth.getUserByEmail as jest.Mock).mockRejectedValue(new Error(errorMessage));
+      (auth.getUserByEmail as jest.Mock).mockRejectedValue(
+        new Error(errorMessage)
+      );
 
       await expect(authenticationService.signIn(email)).rejects.toThrow(
         `Error during login: ${errorMessage}`

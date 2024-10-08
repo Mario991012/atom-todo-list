@@ -1,0 +1,10 @@
+<div class="dialog-container">
+	<h1 mat-dialog-title class="dialog-title">Create New Account</h1>
+	<div mat-dialog-content class="dialog-content">
+		<p>The email you entered does not exist. Do you want to create a new account?</p>
+	</div>
+	<div mat-dialog-actions class="dialog-actions">
+		<button mat-button (click)="onCancel()" class="dialog-button cancel-button">Cancel</button>
+		<button mat-raised-button color="primary" (click)="onConfirm()" class="dialog-button create-button">Create</button>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+.dialog-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dialog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .dialog-content {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .dialog-button {
+    min-width: 100px;
+  }
+  
+  .cancel-button {
+    color: #f44336;
+  }
+  

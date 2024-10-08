@@ -1,0 +1,38 @@
+.login-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 100vh;           /* Takes full viewport height */
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+mat-progress-spinner {
+  display: block;
+  margin: 20px auto 0;
+}

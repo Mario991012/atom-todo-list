@@ -1,12 +1,12 @@
-import { mapAuthResponse } from "../../mappers/users.mapper";
-import { RETURN_CODES } from "../../common/constants/common";
+import {mapAuthResponse} from "../../mappers/users.mapper";
+import {RETURN_CODES} from "../../common/constants/common";
 import {
   AuthenticationResponseModel,
   AuthenticationDTO,
 } from "../../common/interfaces/authentication.interface";
 
 describe("mapAuthResponse", () => {
-  it("should map AuthenticationResponseModel to AuthenticationDTO with the provided return code", () => {
+  it("should map Model to DTO with the provided return code", () => {
     const authResponseMock: AuthenticationResponseModel = {
       user: {
         uid: "12345",
@@ -15,10 +15,11 @@ describe("mapAuthResponse", () => {
         displayName: "Test User",
         disabled: false,
         metadata: {
-            lastSignInTime: "2024-01-01T00:00:00Z", creationTime: "2024-01-01T00:00:00Z",
-            toJSON: function (): object {
-                throw new Error("Function not implemented.");
-            }
+          lastSignInTime: "2024-01-01T00:00:00Z",
+          creationTime: "2024-01-01T00:00:00Z",
+          toJSON: function(): object {
+            throw new Error("Function not implemented.");
+          },
         },
         providerData: [],
         toJSON: () => ({}),
@@ -36,29 +37,33 @@ describe("mapAuthResponse", () => {
       },
     };
 
-    const result = mapAuthResponse(authResponseMock, RETURN_CODES.GENERIC_SUCCESS);
+    const result = mapAuthResponse(
+      authResponseMock,
+      RETURN_CODES.GENERIC_SUCCESS
+    );
 
     expect(result).toEqual(expectedResponse);
   });
 
-  it("should map AuthenticationResponseModel with null email and return correct DTO", () => {
+  it("should map model with null email and return correct DTO", () => {
     const authResponseMock: AuthenticationResponseModel = {
       user: {
-          uid: "12345",
-          email: undefined,
-          emailVerified: false,
-          displayName: "Test User",
-          disabled: false,
-          metadata: {
-              lastSignInTime: "2024-01-01T00:00:00Z", creationTime: "2024-01-01T00:00:00Z",
-              toJSON: function (): object {
-                  throw new Error("Function not implemented.");
-              }
+        uid: "12345",
+        email: undefined,
+        emailVerified: false,
+        displayName: "Test User",
+        disabled: false,
+        metadata: {
+          lastSignInTime: "2024-01-01T00:00:00Z",
+          creationTime: "2024-01-01T00:00:00Z",
+          toJSON: function(): object {
+            throw new Error("Function not implemented.");
           },
-          providerData: [],
-          toJSON: function (): object {
-              throw new Error("Function not implemented.");
-          }
+        },
+        providerData: [],
+        toJSON: function(): object {
+          throw new Error("Function not implemented.");
+        },
       },
       token: "auth-token",
     };
@@ -73,12 +78,15 @@ describe("mapAuthResponse", () => {
       },
     };
 
-    const result = mapAuthResponse(authResponseMock, RETURN_CODES.GENERIC_SUCCESS);
+    const result = mapAuthResponse(
+      authResponseMock,
+      RETURN_CODES.GENERIC_SUCCESS
+    );
 
     expect(result).toEqual(expectedResponse);
   });
 
-  it("should map AuthenticationResponseModel with a different return code", () => {
+  it("should map Model with different returnCode", () => {
     const authResponseMock: AuthenticationResponseModel = {
       user: {
         uid: "67890",
@@ -87,10 +95,11 @@ describe("mapAuthResponse", () => {
         displayName: "Another User",
         disabled: true,
         metadata: {
-            lastSignInTime: "2024-02-02T00:00:00Z", creationTime: "2024-02-02T00:00:00Z",
-            toJSON: function (): object {
-                throw new Error("Function not implemented.");
-            }
+          lastSignInTime: "2024-02-02T00:00:00Z",
+          creationTime: "2024-02-02T00:00:00Z",
+          toJSON: function(): object {
+            throw new Error("Function not implemented.");
+          },
         },
         providerData: [],
         toJSON: () => ({}),
@@ -108,7 +117,10 @@ describe("mapAuthResponse", () => {
       },
     };
 
-    const result = mapAuthResponse(authResponseMock, RETURN_CODES.GENERIC_ERROR);
+    const result = mapAuthResponse(
+      authResponseMock,
+      RETURN_CODES.GENERIC_ERROR
+    );
 
     expect(result).toEqual(expectedResponse);
   });
