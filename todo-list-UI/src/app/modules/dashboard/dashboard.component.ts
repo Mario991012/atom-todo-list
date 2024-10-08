@@ -42,23 +42,10 @@ export class DashboardComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (task) {
-          this.taskService.updateTask(task.id, result).subscribe(() => {
-            this.loadTasks();
-          });
-        } else {
-          const newTask: Task = {
-            id: 0,
-            title: result.title,
-            description: result.description,
-            createdAt: new Date(),
-            completed: false,
-          };
-          this.taskService.addTask(newTask).subscribe(() => {
-            this.loadTasks();
-          });
-        }
+      if (result && task) {
+        this.taskService.updateTask(task.id, result).subscribe(() => {
+          this.loadTasks();
+        });
       }
     });
   }
