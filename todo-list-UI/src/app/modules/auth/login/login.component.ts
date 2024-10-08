@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
@@ -26,7 +26,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = signal(false);
   errorMessage = signal('');
@@ -39,6 +39,10 @@ export class LoginComponent {
     private dialog: MatDialog
   ) {
     this.loginForm = this.buildForm();
+  }
+
+  ngOnInit(): void {
+    this.authService.removeToken();
   }
 
   private buildForm() {
