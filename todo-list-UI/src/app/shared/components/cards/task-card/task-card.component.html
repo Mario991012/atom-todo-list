@@ -1,18 +1,24 @@
-<mat-card>
-	<div class="task-card">
-		<mat-card-title>{{ task.title }}</mat-card-title>
-		<mat-card-subtitle>{{ task.createdAt | date: 'medium' }}</mat-card-subtitle>
-		<mat-card-content>
-			<p>{{ task.description }}</p>
-			<mat-checkbox [checked]="task.completed" (change)="onToggleCompletion()">
-				{{ task.completed ? 'Completed' : 'Pending' }}
-			</mat-checkbox>
-		</mat-card-content>
-		<mat-card-actions>
-			<div class="buttons">
-				<button mat-button color="primary" (click)="onEditTask()">Edit</button>
-				<button mat-button color="warn" (click)="onDeleteTask()">Delete</button>
-			</div>
-		</mat-card-actions>
-	</div>
+<mat-card class="task-card">
+  <div class="task-header">
+    <div class="task-info">
+      <h3 class="task-title">{{ task.title }}</h3>
+      <p class="task-date">{{ task.createdAt | date: 'medium' }}</p>
+    </div>
+    <mat-checkbox
+      class="task-status"
+      [checked]="task.completed"
+      (change)="onToggleCompletion()"
+    >
+      {{ task.completed ? 'Completed' : 'Pending' }}
+    </mat-checkbox>
+  </div>
+
+  <div class="task-content">
+    <p class="task-description">{{ task.description }}</p>
+  </div>
+
+  <div class="task-actions">
+    <button mat-raised-button color="primary" (click)="onEditTask()">Edit</button>
+    <button mat-raised-button color="warn" (click)="onDeleteTask()">Delete</button>
+  </div>
 </mat-card>
