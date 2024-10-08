@@ -1,0 +1,21 @@
+.task-board {
+  margin-bottom: $spacing-large;
+
+  h2 {
+    font-size: $font-size-large;
+    font-weight: bold;
+    margin-bottom: $spacing-medium;
+    color: $text-primary-color;
+  }
+
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-medium;
+  }
+
+  p {
+    font-size: $font-size-base;
+    color: $text-muted-color;
+  }
+}

@@ -1,0 +1,108 @@
+.task-card {
+  padding: $spacing-large;
+  margin-bottom: $spacing-medium;
+  border-radius: 12px;
+  background-color: $card-background-color;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-small;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: $spacing-small;
+
+    .task-info {
+      .task-title {
+        font-size: 1.125rem;
+        font-weight: bold;
+        color: $text-primary-color;
+        margin: 0;
+      }
+
+      .task-date {
+        font-size: $font-size-small;
+        color: $text-muted-color;
+        margin-top: 0.25rem;
+      }
+    }
+
+    .task-status {
+      font-size: $font-size-small;
+      font-weight: 500;
+      color: $text-secondary-color;
+    }
+  }
+
+  .task-content {
+    .task-description {
+      font-size: $font-size-small;
+      color: $text-secondary-color;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+
+  .task-actions {
+    margin-top: $spacing-medium;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-small;
+
+    button {
+      font-weight: 600;
+      padding: $spacing-small $spacing-medium;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+
+      &.edit-button {
+        background-color: $primary-color;
+        color: white;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+
+      &.delete-button {
+        background-color: $error-color;
+        color: white;
+
+        &:hover {
+          background-color: darken($error-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .task-card {
+    padding: $spacing-medium;
+
+    .task-title {
+      font-size: $font-size-base;
+    }
+
+    .task-description {
+      font-size: $font-size-small;
+    }
+
+    .task-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

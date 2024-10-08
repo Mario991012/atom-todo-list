@@ -1,16 +1,17 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/components/dialogs/confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginUserResponse } from '../../../shared/interfaces/user.interface';
-import { UsersService } from '../../../core/services/users/users.service';
 import { NotificationService } from '../../../core/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
+import { UsersService } from '../../../services/users/user.service';
+import { TokenService } from '../../../core/services/token/token.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: UsersService,
+    private userService: UsersService,
+    private tokenService: TokenService,
     private router: Router,
     private notificationService: NotificationService,
     private dialog: MatDialog
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.removeToken();
+    this.tokenService.removeToken();
   }
 
   private buildForm() {
@@ -57,12 +59,12 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const email = this.loginForm.value.email;
+    const email = this.loginForm.getRawValue().email;
     this.loading.set(true);
     this.errorMessage.set('');
 
-    this.authService.login(email).subscribe({
-      next: (response: LoginUserResponse) => {
+    this.userService.login(email).subscribe({
+      next: async (response: LoginUserResponse) => {
         if (response.returnCode !== 0) {
           const dialogRef = this.dialog.open(ConfirmDialogComponent);
           dialogRef.afterClosed().subscribe((result) => {
@@ -72,9 +74,11 @@ export class LoginComponent implements OnInit {
             this.loading.set(false);
           });
         } else {
-          this.authService.storeToken(response.data.token);
-          this.notificationService.showSuccess('Login successful');
-          this.router.navigate(['/dashboard']);
+          await this.tokenService.loginWithCustomToken(response.data.token);
+          this.notificationService.showSuccess(`Login successful of ${response.data.email}`);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 500);
         }
       },
       error: () => {
@@ -85,9 +89,9 @@ export class LoginComponent implements OnInit {
   }
 
   private createUser(email: string) {
-    this.authService.createUser(email).subscribe({
+    this.userService.createUser(email).subscribe({
       next: (response) => {
-        this.authService.storeToken(response.data.token);
+        this.tokenService.loginWithCustomToken(response.data.token);
         this.notificationService.showSuccess('Account created successfully');
         this.router.navigate(['/dashboard']);
       },

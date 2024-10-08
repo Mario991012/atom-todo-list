@@ -1,1 +1,37 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="task-actions">
+    <button mat-raised-button color="primary" (click)="openTaskFormDialog()">Add Task</button>
+    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- Filter Inputs -->
+  <div class="filters">
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by Title</mat-label>
+      <input matInput [(ngModel)]="filterTitle" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by Description</mat-label>
+      <input matInput [(ngModel)]="filterDescription" />
+    </mat-form-field>
+  </div>
+
+  <!-- Pending Tasks Board -->
+  <app-task-board
+    [title]="'Pending Tasks'"
+    [tasks]="getTasksByStatus(false)"
+    (toggleCompletion)="toggleTaskCompletion($event)"
+    (editTask)="openTaskFormDialog($event)"
+    (deleteTask)="deleteTask($event)"
+  ></app-task-board>
+
+  <!-- Completed Tasks Board -->
+  <app-task-board
+    [title]="'Completed Tasks'"
+    [tasks]="getTasksByStatus(true)"
+    (toggleCompletion)="toggleTaskCompletion($event)"
+    (editTask)="openTaskFormDialog($event)"
+    (deleteTask)="deleteTask($event)"
+  ></app-task-board>
+</div>
