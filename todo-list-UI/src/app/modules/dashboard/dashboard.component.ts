@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Task } from '../../shared/interfaces/task.interface';
 import { TaskService } from '../../services/tasks/task.service';
 import { TaskFormDialogComponent } from '../../shared/components/dialogs/task-form-dialog/task-form-dialog.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TaskBoardComponent } from '../../shared/components/boards/task-board/task-board.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { UsersService } from '../../services/users/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    NgOptimizedImage,
   ],
 })
 export class DashboardComponent {
@@ -32,6 +34,7 @@ export class DashboardComponent {
   filterDescription = signal<string>('');
 
   taskService = inject(TaskService);
+  userService = inject(UsersService);
   dialog = inject(MatDialog);
   router = inject(Router);
 
@@ -47,18 +50,18 @@ export class DashboardComponent {
 
   getTasksByStatus(completed: boolean): Task[] {
     return this.tasks()
-    .filter((task) => task.completed === completed)
-    .filter(
-      (task) =>
-        task.title.toLowerCase().includes(this.filterTitle().toLowerCase()) &&
-        task.description
-          .toLowerCase()
-          .includes(this.filterDescription().toLowerCase())
-    )
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+      .filter((task) => task.completed === completed)
+      .filter(
+        (task) =>
+          task.title.toLowerCase().includes(this.filterTitle().toLowerCase()) &&
+          task.description
+            .toLowerCase()
+            .includes(this.filterDescription().toLowerCase())
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
   }
 
   openTaskFormDialog(task?: Task) {
@@ -104,5 +107,9 @@ export class DashboardComponent {
 
   logout() {
     this.router.navigate(['/login']);
+  }
+
+  get email() {
+    return this.userService.getEmail();
   }
 }

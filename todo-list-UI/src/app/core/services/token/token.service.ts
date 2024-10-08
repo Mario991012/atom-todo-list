@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithCustomToken } from '@angular/fire/auth';
 import { from } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,19 @@ export class TokenService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  decodeToken(): any | null {
+    const token = this.getToken();
+    if (!token) {
+      return null;
+    }
+    try {
+      return jwtDecode(token);
+    } catch (error) {
+      console.error('Failed to decode token', error);
+      return null;
+    }
   }
 
   signInWithCustomToken(customToken: string) {

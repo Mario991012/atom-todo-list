@@ -1,6 +1,6 @@
 export interface JWTDecoded {
   aud: string;
-  exp: number;
+  exp?: number;
   iat: number;
   iss: string;
   sub: string;
