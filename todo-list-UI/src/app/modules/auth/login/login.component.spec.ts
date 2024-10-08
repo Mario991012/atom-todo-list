@@ -7,8 +7,9 @@ import { of, throwError } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoginComponent } from './login.component';
-import { UsersService } from '../../../core/services/users/users.service';
+import { UsersService } from '../../../services/users/users.service';
 import { NotificationService } from '../../../core/services/notification/notification.service';
+import { TokenService } from '../../../core/services/token/token.service'; // New import
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CreateUserResponse, LoginUserResponse } from '../../../shared/interfaces/user.interface';
 
@@ -19,9 +20,11 @@ describe('LoginComponent', () => {
   let notificationServiceSpy: jasmine.SpyObj<NotificationService>;
   let routerSpy: jasmine.SpyObj<Router>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
+  let tokenServiceSpy: jasmine.SpyObj<TokenService>;
 
   beforeEach(async () => {
-    usersServiceSpy = jasmine.createSpyObj('UsersService', ['login', 'createUser', 'storeToken', 'removeToken']);  // Added removeToken
+    usersServiceSpy = jasmine.createSpyObj('UsersService', ['login', 'createUser']);
+    tokenServiceSpy = jasmine.createSpyObj('TokenService', ['storeToken', 'removeToken']);
     notificationServiceSpy = jasmine.createSpyObj('NotificationService', ['showError', 'showSuccess']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -29,12 +32,13 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        MatSnackBarModule,  
+        MatSnackBarModule,
         NoopAnimationsModule,
-        LoginComponent,  
+        LoginComponent,
       ],
       providers: [
         { provide: UsersService, useValue: usersServiceSpy },
+        { provide: TokenService, useValue: tokenServiceSpy },
         { provide: NotificationService, useValue: notificationServiceSpy },
         { provide: Router, useValue: routerSpy },
         { provide: MatDialog, useValue: dialogSpy },
@@ -67,7 +71,7 @@ describe('LoginComponent', () => {
     component.onSubmit();
 
     expect(usersServiceSpy.login).toHaveBeenCalledWith('test@example.com');
-    expect(usersServiceSpy.storeToken).toHaveBeenCalledWith('abc123');
+    expect(tokenServiceSpy.storeToken).toHaveBeenCalledWith('abc123');
     expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Login successful');
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
@@ -90,7 +94,7 @@ describe('LoginComponent', () => {
     component.onSubmit();
 
     expect(usersServiceSpy.createUser).toHaveBeenCalledWith('test@example.com');
-    expect(usersServiceSpy.storeToken).toHaveBeenCalledWith('newToken123');
+    expect(tokenServiceSpy.storeToken).toHaveBeenCalledWith('newToken123');
     expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Account created successfully');
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
   });

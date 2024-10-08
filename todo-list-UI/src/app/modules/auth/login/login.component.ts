@@ -8,9 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginUserResponse } from '../../../shared/interfaces/user.interface';
-import { UsersService } from '../../../core/services/users/users.service';
 import { NotificationService } from '../../../core/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
+import { UsersService } from '../../../services/users/users.service';
+import { TokenService } from '../../../core/services/token/token.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: UsersService,
+    private userService: UsersService,
+    private tokenService: TokenService,
     private router: Router,
     private notificationService: NotificationService,
     private dialog: MatDialog
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.removeToken();
+    this.tokenService.removeToken();
   }
 
   private buildForm() {
@@ -61,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.loading.set(true);
     this.errorMessage.set('');
 
-    this.authService.login(email).subscribe({
+    this.userService.login(email).subscribe({
       next: (response: LoginUserResponse) => {
         if (response.returnCode !== 0) {
           const dialogRef = this.dialog.open(ConfirmDialogComponent);
@@ -72,7 +74,7 @@ export class LoginComponent implements OnInit {
             this.loading.set(false);
           });
         } else {
-          this.authService.storeToken(response.data.token);
+          this.tokenService.storeToken(response.data.token);
           this.notificationService.showSuccess('Login successful');
           this.router.navigate(['/dashboard']);
         }
@@ -85,9 +87,9 @@ export class LoginComponent implements OnInit {
   }
 
   private createUser(email: string) {
-    this.authService.createUser(email).subscribe({
+    this.userService.createUser(email).subscribe({
       next: (response) => {
-        this.authService.storeToken(response.data.token);
+        this.tokenService.storeToken(response.data.token);
         this.notificationService.showSuccess('Account created successfully');
         this.router.navigate(['/dashboard']);
       },

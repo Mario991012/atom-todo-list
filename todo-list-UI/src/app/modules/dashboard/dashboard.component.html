@@ -1,1 +1,25 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <button mat-raised-button color="primary" (click)="openTaskFormDialog()">Add Task</button>
+  
+    <div class="task-list" *ngIf="tasks.length > 0; else noTasks">
+      <mat-card *ngFor="let task of tasks" class="task-card">
+        <mat-card-title>{{ task.title }}</mat-card-title>
+        <mat-card-subtitle>{{ task.createdAt | date: 'medium' }}</mat-card-subtitle>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <mat-checkbox [(ngModel)]="task.completed" (change)="toggleTaskCompletion(task)">
+            {{ task.completed ? 'Completed' : 'Pending' }}
+          </mat-checkbox>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="openTaskFormDialog(task)">Edit</button>
+          <button mat-button color="warn" (click)="deleteTask(task.id)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  
+    <ng-template #noTasks>
+      <p>No tasks available. Click "Add Task" to create your first task!</p>
+    </ng-template>
+  </div>
+  
