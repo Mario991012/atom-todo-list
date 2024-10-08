@@ -21,7 +21,7 @@ describe('LoginComponent', () => {
   let dialogSpy: jasmine.SpyObj<MatDialog>;
 
   beforeEach(async () => {
-    usersServiceSpy = jasmine.createSpyObj('UsersService', ['login', 'createUser', 'storeToken']);
+    usersServiceSpy = jasmine.createSpyObj('UsersService', ['login', 'createUser', 'storeToken', 'removeToken']);  // Added removeToken
     notificationServiceSpy = jasmine.createSpyObj('NotificationService', ['showError', 'showSuccess']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
