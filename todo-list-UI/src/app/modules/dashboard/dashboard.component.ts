@@ -5,9 +5,8 @@ import { Task } from '../../shared/interfaces/task.interface';
 import { TaskService } from '../../services/tasks/task.service';
 import { TaskFormDialogComponent } from '../../shared/components/dialogs/task-form-dialog/task-form-dialog.component';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TaskCardComponent } from '../../shared/components/cards/task-card/task-card.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,9 +16,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     CommonModule,
     MatDialogModule,
-    MatCardModule,
-    MatCheckboxModule,
     MatButtonModule,
+    TaskCardComponent,
   ],
 })
 export class DashboardComponent {

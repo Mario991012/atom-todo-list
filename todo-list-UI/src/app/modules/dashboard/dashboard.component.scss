@@ -1,32 +1,11 @@
 .dashboard-container {
-    padding: 16px;
-    max-width: 800px;
-    margin: auto;
-    background-color: white;
-  }
+  padding: 16px;
+  max-width: 800px;
+  margin: auto;
+}
 
-  .buttons {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .task-card {
-    padding: 16px;
-  }
-  
-  @media (max-width: 600px) {
-    .dashboard-container {
-      padding: 8px;
-    }
-  
-    .task-card {
-      padding: 8px;
-    }
-  }
-  
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

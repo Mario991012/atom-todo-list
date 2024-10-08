@@ -1,0 +1,13 @@
+.task-card {
+	padding: 16px;
+}
+
+@media (max-width: 600px) {
+	.dashboard-container {
+		padding: 8px;
+	}
+
+	.task-card {
+		padding: 8px;
+	}
+}
