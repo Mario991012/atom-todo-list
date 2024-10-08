@@ -11,6 +11,7 @@ import {
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,12 +21,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([tokenInterceptor])),
     provideFirebaseApp(() =>
       initializeApp({
-        projectId: 'atom-angular-todo',
-        appId: '1:993218519320:web:5bb14d94c60aeeefe6be6d',
-        storageBucket: 'atom-angular-todo.appspot.com',
-        apiKey: 'AIzaSyCCaW_Q8UDtSSLK2xsxCorVmyBYfhqdHUY',
-        authDomain: 'atom-angular-todo.firebaseapp.com',
-        messagingSenderId: '993218519320',
+        projectId: environment.projectId,
+        appId: environment.appId,
+        storageBucket: environment.storageBucket,
+        apiKey: environment.apiKey,
+        authDomain: environment.authDomain,
+        messagingSenderId: environment.messagingSenderId,
       })
     ),
     provideAuth(() => getAuth()),
