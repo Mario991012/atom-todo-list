@@ -20,8 +20,8 @@ export class UsersService {
   async createUser(
     email: string
   ): Promise<AuthenticationDTO | GenericErrorDTO> {
-		try {
-			const result = await this.authService.createUser(email);
+    try {
+      const result = await this.authService.createUser(email);
       return mapAuthResponse(result, RETURN_CODES.GENERIC_SUCCESS);
     } catch (error: any) {
       logger.error(`Error creating user: ${error.message}`);
