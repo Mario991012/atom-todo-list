@@ -1,0 +1,55 @@
+.dialog-container {
+    padding: 16px;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    margin-bottom: 16px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  
+  button {
+    font-weight: bold;
+  }
+  
+  .mat-dialog-container {
+    background-color: #f5f5f5; /* Light gray for the background */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+  }
+  
+  h1.mat-dialog-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Darker text color */
+  }
+  
+  .mat-button, .mat-raised-button {
+    border-radius: 4px; /* Slightly rounded buttons */
+  }
+  
+  button[mat-button].mat-primary {
+    background-color: #ff9900; /* Primary color for "Add Task" */
+    color: #fff;
+  }
+  
+  button[mat-button].mat-warn {
+    background-color: #f44336; /* Red for cancel */
+    color: #fff;
+  }
+  ::ng-deep .mat-dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full height for vertical centering */
+  }
+  
