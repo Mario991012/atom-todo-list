@@ -1,8 +1,8 @@
 .login-container {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center;     /* Centers vertically */
-  height: 100vh;           /* Takes full viewport height */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .login-card {
@@ -10,20 +10,15 @@
   max-width: 400px;
   padding: 20px;
   box-sizing: border-box;
+
+  img {
+    margin: auto;
+    margin-bottom: 16px;
+  }
 }
 
 .full-width {
   width: 100%;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-  text-align: center;
 }
 
 .error-message {
