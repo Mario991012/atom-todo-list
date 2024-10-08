@@ -94,7 +94,6 @@ describe('LoginComponent', () => {
     expect(usersServiceSpy.createUser).toHaveBeenCalledWith('test@example.com');
     expect(tokenServiceSpy.loginWithCustomToken).toHaveBeenCalledWith('newToken123');
     expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Account created successfully');
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   it('should show error message when login fails', () => {

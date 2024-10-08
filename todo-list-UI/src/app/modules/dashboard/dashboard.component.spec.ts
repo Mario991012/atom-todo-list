@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { TaskService } from '../../services/tasks/task.service';
 import { DashboardComponent } from './dashboard.component';
 import { Task } from '../../shared/interfaces/task.interface';
 import { TaskBoardComponent } from '../../shared/components/boards/task-board/task-board.component';
-import { TaskFormDialogComponent } from '../../shared/components/dialogs/task-form-dialog/task-form-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TokenService } from '../../core/services/token/token.service';
+import { Auth } from '@angular/fire/auth';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -20,6 +22,8 @@ describe('DashboardComponent', () => {
   let taskServiceSpy: jasmine.SpyObj<TaskService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
   let routerSpy: jasmine.SpyObj<Router>;
+  let tokenServiceSpy: jasmine.SpyObj<TokenService>;
+  let authSpy: jasmine.SpyObj<Auth>;
 
   const mockTasks: Task[] = [
     { id: 1, title: 'Task 1', description: 'Description 1', createdAt: new Date(), completed: false },
@@ -31,6 +35,8 @@ describe('DashboardComponent', () => {
     taskServiceSpy = jasmine.createSpyObj('TaskService', ['getTasks', 'addTask', 'updateTask', 'deleteTask', 'toggleTaskCompletion']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    tokenServiceSpy = jasmine.createSpyObj('TokenService', ['getToken', 'removeToken', 'decodeToken']); // <-- Mock TokenService methods
+    authSpy = jasmine.createSpyObj('Auth', ['signInWithCustomToken']);
 
     // Ensure getTasks returns an observable of mock tasks
     taskServiceSpy.getTasks.and.returnValue(of(mockTasks));
@@ -45,11 +51,14 @@ describe('DashboardComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         NoopAnimationsModule,
+        HttpClientTestingModule,
       ],
       providers: [
         { provide: TaskService, useValue: taskServiceSpy },
         { provide: MatDialog, useValue: dialogSpy },
         { provide: Router, useValue: routerSpy },
+        { provide: TokenService, useValue: tokenServiceSpy },
+        { provide: Auth, useValue: authSpy },
       ],
     }).compileComponents();
 
