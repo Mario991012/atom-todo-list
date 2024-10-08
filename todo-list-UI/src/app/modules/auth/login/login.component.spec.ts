@@ -10,7 +10,7 @@ import { LoginComponent } from './login.component';
 import { UsersService } from '../../../services/users/user.service';
 import { NotificationService } from '../../../core/services/notification/notification.service';
 import { TokenService } from '../../../core/services/token/token.service';
-import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/components/dialogs/confirm-dialog/confirm-dialog.component';
 import { CreateUserResponse, LoginUserResponse } from '../../../shared/interfaces/user.interface';
 
 describe('LoginComponent', () => {
