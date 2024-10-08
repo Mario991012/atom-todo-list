@@ -2,6 +2,22 @@
   padding: 16px;
   max-width: 800px;
   margin: auto;
+  
+  .task-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .filters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    mat-form-field {
+      flex: 1;
+    }
+  }
 }
 
 .task-list {

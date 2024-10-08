@@ -7,16 +7,30 @@ import { TaskFormDialogComponent } from '../../shared/components/dialogs/task-fo
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TaskBoardComponent } from '../../shared/components/boards/task-board/task-board.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, TaskBoardComponent],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    TaskBoardComponent,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
 })
 export class DashboardComponent {
   tasks = signal<Task[]>([]);
+  filterTitle = signal<string>('');
+  filterDescription = signal<string>('');
+
   taskService = inject(TaskService);
   dialog = inject(MatDialog);
   router = inject(Router);
@@ -31,16 +45,30 @@ export class DashboardComponent {
     });
   }
 
-  get pendingTasks(): Task[] {
+  getTasksByStatus(completed: boolean) {
     return this.tasks()
-      .filter((task) => !task.completed)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    .filter((task) => completed ? task.completed : !task.completed)
+    .filter(
+      (task) =>
+        task.title.toLowerCase().includes(this.filterTitle().toLowerCase()) &&
+        task.description
+          .toLowerCase()
+          .includes(this.filterDescription().toLowerCase())
+    )
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   }
 
-  get completedTasks(): Task[] {
-    return this.tasks()
-      .filter((task) => task.completed)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  onTitleInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.filterTitle.set(input.value);
+  }
+
+  onDescriptionInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.filterDescription.set(input.value);
   }
 
   openTaskFormDialog(task?: Task) {
@@ -50,9 +78,11 @@ export class DashboardComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && task) {
-        this.taskService.updateTask(task.id, { ...task, ...result }).subscribe(() => {
-          this.loadTasks();
-        });
+        this.taskService
+          .updateTask(task.id, { ...task, ...result })
+          .subscribe(() => {
+            this.loadTasks();
+          });
       }
     });
   }
