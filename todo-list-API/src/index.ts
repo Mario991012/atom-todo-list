@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: ["https://atom-angular-todo.web.app"],
+  origin: ["http://localhost:4200", "https://atom-angular-todo.web.app"],
   credentials: true,
 }));
 

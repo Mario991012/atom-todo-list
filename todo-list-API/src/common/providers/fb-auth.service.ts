@@ -37,7 +37,7 @@ class AuthenticationService implements IAuthenticationService {
         throw new Error("User does not exist");
       }
 
-      const customToken = await auth.createCustomToken(userRecord.uid, { email });
+      const customToken = await auth.createCustomToken(userRecord.uid, {email});
 
       return {user: userRecord, token: customToken};
     } catch (error: any) {
