@@ -1,21 +1,21 @@
 .task-board {
-	margin-bottom: 32px;
+  margin-bottom: $spacing-large;
 
-	h2 {
-		font-size: 24px;
-		font-weight: bold;
-		margin-bottom: 16px;
-		color: #333;
-	}
+  h2 {
+    font-size: $font-size-large;
+    font-weight: bold;
+    margin-bottom: $spacing-medium;
+    color: $text-primary-color;
+  }
 
-	.task-list {
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
-	}
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-medium;
+  }
 
-	p {
-		font-size: 16px;
-		color: #888;
-	}
+  p {
+    font-size: $font-size-base;
+    color: $text-muted-color;
+  }
 }

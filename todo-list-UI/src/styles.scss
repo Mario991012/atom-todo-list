@@ -1,5 +1,15 @@
+@import "assets/styles/variables.scss";
 @import "assets/styles/theme";
 @import "assets/styles/cards.scss";
+@import "assets/styles/boards.scss";
 
-html, body { height: 100%; background-color: #ff9900 !important; }
-body { margin: 0; font-family: Inter, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  background-color: $primary-background-color !important; 
+}
+
+body {
+  margin: 0;
+  font-family: Inter, "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+}
