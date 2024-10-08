@@ -6,14 +6,14 @@ import { TaskService } from '../../services/tasks/task.service';
 import { TaskFormDialogComponent } from '../../shared/components/dialogs/task-form-dialog/task-form-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { TaskCardComponent } from '../../shared/components/cards/task-card/task-card.component';
+import { TaskBoardComponent } from '../../shared/components/boards/task-board/task-board.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, TaskCardComponent],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, TaskBoardComponent],
 })
 export class DashboardComponent {
   tasks = signal<Task[]>([]);

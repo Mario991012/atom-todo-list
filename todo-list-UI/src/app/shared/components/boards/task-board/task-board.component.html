@@ -1,0 +1,17 @@
+<div class="task-board">
+    <h2>{{ title }}</h2>
+    <div class="task-list" *ngIf="tasks.length > 0; else noTasks">
+      <app-task-card
+        *ngFor="let task of tasks"
+        [task]="task"
+        (toggleCompletion)="onToggleCompletion(task)"
+        (editTask)="onEditTask(task)"
+        (deleteTask)="onDeleteTask(task.id)"
+      ></app-task-card>
+    </div>
+  
+    <ng-template #noTasks>
+      <p>No {{ title.toLowerCase() }} available.</p>
+    </ng-template>
+  </div>
+  
