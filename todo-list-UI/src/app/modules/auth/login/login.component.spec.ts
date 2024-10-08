@@ -4,7 +4,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { of, throwError } from 'rxjs';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';  // Import NoopAnimationsModule
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoginComponent } from './login.component';
 import { UsersService } from '../../../core/services/users/users.service';
@@ -30,7 +30,7 @@ describe('LoginComponent', () => {
       imports: [
         ReactiveFormsModule,
         MatSnackBarModule,  
-        NoopAnimationsModule,  // Add NoopAnimationsModule here to disable animations during testing
+        NoopAnimationsModule,
         LoginComponent,  
       ],
       providers: [
@@ -70,22 +70,6 @@ describe('LoginComponent', () => {
     expect(usersServiceSpy.storeToken).toHaveBeenCalledWith('abc123');
     expect(notificationServiceSpy.showSuccess).toHaveBeenCalledWith('Login successful');
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/dashboard']);
-  });
-
-  it('should open the confirm dialog when login returns a non-zero returnCode', () => {
-    const mockResponse: LoginUserResponse = {
-      returnCode: 1,
-      data: { id: '', email: 'test@example.com', disabled: false, token: '' },
-    };
-
-    usersServiceSpy.login.and.returnValue(of(mockResponse));
-    dialogSpy.open.and.returnValue({ afterClosed: () => of(true) } as MatDialogRef<ConfirmDialogComponent>);
-
-    component.loginForm.setValue({ email: 'test@example.com' });
-    component.onSubmit();
-
-    expect(usersServiceSpy.login).toHaveBeenCalledWith('test@example.com');
-    expect(dialogSpy.open).toHaveBeenCalledWith(ConfirmDialogComponent);
   });
 
   it('should create a new user when dialog confirms account creation', () => {

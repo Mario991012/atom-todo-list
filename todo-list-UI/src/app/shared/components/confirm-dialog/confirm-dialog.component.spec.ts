@@ -46,15 +46,15 @@ describe('ConfirmDialogComponent', () => {
 
   it('should trigger onCancel when the Cancel button is clicked', () => {
     spyOn(component, 'onCancel');
-    const button = fixture.debugElement.query(By.css('.cancel-button')).nativeElement;
-    button.click();
+    const cancelButton = fixture.debugElement.query(By.css('.cancel-button')).nativeElement;
+    cancelButton.click();
     expect(component.onCancel).toHaveBeenCalled();
   });
 
   it('should trigger onConfirm when the Create button is clicked', () => {
     spyOn(component, 'onConfirm');
-    const button = fixture.debugElement.query(By.css('.dialog-button')).nativeElement;
-    button.click();
+    const createButton = fixture.debugElement.query(By.css('.create-button')).nativeElement;
+    createButton.click();
     expect(component.onConfirm).toHaveBeenCalled();
   });
 });
