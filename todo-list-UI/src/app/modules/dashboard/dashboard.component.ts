@@ -45,9 +45,9 @@ export class DashboardComponent {
     });
   }
 
-  getTasksByStatus(completed: boolean) {
+  getTasksByStatus(completed: boolean): Task[] {
     return this.tasks()
-    .filter((task) => completed ? task.completed : !task.completed)
+    .filter((task) => task.completed === completed)
     .filter(
       (task) =>
         task.title.toLowerCase().includes(this.filterTitle().toLowerCase()) &&
@@ -61,28 +61,31 @@ export class DashboardComponent {
     );
   }
 
-  onTitleInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.filterTitle.set(input.value);
-  }
-
-  onDescriptionInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.filterDescription.set(input.value);
-  }
-
   openTaskFormDialog(task?: Task) {
     const dialogRef = this.dialog.open(TaskFormDialogComponent, {
       data: task || { title: '', description: '', completed: false },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result && task) {
-        this.taskService
-          .updateTask(task.id, { ...task, ...result })
-          .subscribe(() => {
+      if (result) {
+        if (task) {
+          this.taskService
+            .updateTask(task.id, { ...task, ...result })
+            .subscribe(() => {
+              this.loadTasks();
+            });
+        } else {
+          const newTask: Task = {
+            id: 0,
+            title: result.title,
+            description: result.description,
+            createdAt: new Date(),
+            completed: false,
+          };
+          this.taskService.addTask(newTask).subscribe(() => {
             this.loadTasks();
           });
+        }
       }
     });
   }
