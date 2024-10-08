@@ -1,7 +1,5 @@
-import { Task, TaskListResponse } from "../shared/interfaces/task.interface";
+import { Task, TaskListResponse } from '../shared/interfaces/task.interface';
 
-export const mapUserListResponse = (
-    response: TaskListResponse,
-  ): Task[] => {
-    return response?.data;
-  };
+export const mapUserListResponse = (response: TaskListResponse): Task[] => {
+  return response?.data;
+};

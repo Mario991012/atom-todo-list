@@ -94,7 +94,9 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         this.tokenService.loginWithCustomToken(response.data.token);
         this.notificationService.showSuccess('Account created successfully');
-        this.router.navigate(['/dashboard']);
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 500);
       },
       error: () => {
         this.loading.set(false);

@@ -1,7 +1,11 @@
 <div class="dashboard-container">
   <div class="task-actions">
+    <h1>Welcome {{email}}</h1>
+    <img alt="Logo de ATOM Chat" ngSrc="assets/images/logo-atom-chat.png" width="192.5" height="55" />
+  </div>
+  <div class="task-actions">
     <button mat-raised-button color="primary" (click)="openTaskFormDialog()">Add Task</button>
-    <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+    <button mat-raised-button color="warn" (click)="logout()">Log out</button>
   </div>
 
   <!-- Filter Inputs -->
