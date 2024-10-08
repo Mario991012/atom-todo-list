@@ -10,7 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginUserResponse } from '../../../shared/interfaces/user.interface';
 import { NotificationService } from '../../../core/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
-import { UsersService } from '../../../services/users/users.service';
+import { UsersService } from '../../../services/users/user.service';
 import { TokenService } from '../../../core/services/token/token.service';
 
 @Component({
