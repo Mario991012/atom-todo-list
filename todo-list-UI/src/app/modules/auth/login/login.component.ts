@@ -59,12 +59,12 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const email = this.loginForm.value.email;
+    const email = this.loginForm.getRawValue().email;
     this.loading.set(true);
     this.errorMessage.set('');
 
     this.userService.login(email).subscribe({
-      next: (response: LoginUserResponse) => {
+      next: async (response: LoginUserResponse) => {
         if (response.returnCode !== 0) {
           const dialogRef = this.dialog.open(ConfirmDialogComponent);
           dialogRef.afterClosed().subscribe((result) => {
@@ -74,9 +74,11 @@ export class LoginComponent implements OnInit {
             this.loading.set(false);
           });
         } else {
-          this.tokenService.storeToken(response.data.token);
-          this.notificationService.showSuccess('Login successful');
-          this.router.navigate(['/dashboard']);
+          await this.tokenService.loginWithCustomToken(response.data.token);
+          this.notificationService.showSuccess(`Login successful of ${response.data.email}`);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 500);
         }
       },
       error: () => {
@@ -89,7 +91,7 @@ export class LoginComponent implements OnInit {
   private createUser(email: string) {
     this.userService.createUser(email).subscribe({
       next: (response) => {
-        this.tokenService.storeToken(response.data.token);
+        this.tokenService.loginWithCustomToken(response.data.token);
         this.notificationService.showSuccess('Account created successfully');
         this.router.navigate(['/dashboard']);
       },
