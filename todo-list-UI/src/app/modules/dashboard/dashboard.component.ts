@@ -13,12 +13,7 @@ import { TaskCardComponent } from '../../shared/components/cards/task-card/task-
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    TaskCardComponent,
-  ],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, TaskCardComponent],
 })
 export class DashboardComponent {
   tasks = signal<Task[]>([]);
@@ -43,9 +38,11 @@ export class DashboardComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && task) {
-        this.taskService.updateTask(task.id, result).subscribe(() => {
-          this.loadTasks();
-        });
+        this.taskService
+          .updateTask(task.id, { ...task, ...result })
+          .subscribe(() => {
+            this.loadTasks();
+          });
       }
     });
   }
