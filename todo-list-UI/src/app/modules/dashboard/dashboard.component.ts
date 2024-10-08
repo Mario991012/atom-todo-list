@@ -31,6 +31,18 @@ export class DashboardComponent {
     });
   }
 
+  get pendingTasks(): Task[] {
+    return this.tasks()
+      .filter((task) => !task.completed)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  get completedTasks(): Task[] {
+    return this.tasks()
+      .filter((task) => task.completed)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
   openTaskFormDialog(task?: Task) {
     const dialogRef = this.dialog.open(TaskFormDialogComponent, {
       data: task || { title: '', description: '', completed: false },
@@ -38,11 +50,9 @@ export class DashboardComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && task) {
-        this.taskService
-          .updateTask(task.id, { ...task, ...result })
-          .subscribe(() => {
-            this.loadTasks();
-          });
+        this.taskService.updateTask(task.id, { ...task, ...result }).subscribe(() => {
+          this.loadTasks();
+        });
       }
     });
   }

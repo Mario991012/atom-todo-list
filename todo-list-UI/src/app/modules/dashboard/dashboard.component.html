@@ -4,9 +4,11 @@
     <button mat-raised-button color="warn" (click)="logout()">Logout</button>
   </div>
 
-  <div class="task-list" *ngIf="tasks().length > 0; else noTasks">
+  <!-- Pending Tasks Section -->
+  <h2>Pending Tasks</h2>
+  <div class="task-list" *ngIf="pendingTasks.length > 0; else noPendingTasks">
     <app-task-card
-      *ngFor="let task of tasks()"
+      *ngFor="let task of pendingTasks"
       [task]="task"
       (toggleCompletion)="toggleTaskCompletion($event)"
       (editTask)="openTaskFormDialog($event)"
@@ -14,7 +16,23 @@
     ></app-task-card>
   </div>
 
-  <ng-template #noTasks>
-    <p>No tasks available. Click "Add Task" to create your first task!</p>
+  <ng-template #noPendingTasks>
+    <p>No pending tasks available.</p>
+  </ng-template>
+
+  <!-- Completed Tasks Section -->
+  <h2>Completed Tasks</h2>
+  <div class="task-list" *ngIf="completedTasks.length > 0; else noCompletedTasks">
+    <app-task-card
+      *ngFor="let task of completedTasks"
+      [task]="task"
+      (toggleCompletion)="toggleTaskCompletion($event)"
+      (editTask)="openTaskFormDialog($event)"
+      (deleteTask)="deleteTask($event)"
+    ></app-task-card>
+  </div>
+
+  <ng-template #noCompletedTasks>
+    <p>No completed tasks available.</p>
   </ng-template>
 </div>
