@@ -9,11 +9,14 @@ export class TasksController {
       const result = await TasksService.getAllTasks();
       logger.info("getAllTasks result", result);
       res.status(200).json(result);
-    } catch (error: any) {
-      logger.error("getAllTasks error", error.message);
+    } catch (error: unknown) {
+      logger.error("getAllTasks error", (error as Error).message);
       res
         .status(500)
-        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
+        .json({
+          error: (error as Error).message,
+          returnCode: RETURN_CODES.GENERIC_ERROR,
+        });
     }
   }
 
@@ -32,11 +35,12 @@ export class TasksController {
       const newTask = await TasksService.createTask(task);
       logger.info("createTask result", newTask);
       res.status(201).json(newTask);
-    } catch (error: any) {
+    } catch (error: unknown) {
       logger.error("getAllTasks error", error);
-      res
-        .status(500)
-        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
+      res.status(500).json({
+        error: (error as Error).message,
+        returnCode: RETURN_CODES.GENERIC_ERROR,
+      });
     }
   }
 
@@ -52,11 +56,12 @@ export class TasksController {
       });
       logger.info("updateTask result", updatedTask);
       res.status(200).json(updatedTask);
-    } catch (error: any) {
+    } catch (error: unknown) {
       logger.error("updateTask error", error);
-      res
-        .status(500)
-        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
+      res.status(500).json({
+        error: (error as Error).message,
+        returnCode: RETURN_CODES.GENERIC_ERROR,
+      });
     }
   }
 
@@ -67,11 +72,12 @@ export class TasksController {
       const result = await TasksService.deleteTask(id);
       logger.info("deleteTask result", result);
       res.status(200).json(result);
-    } catch (error: any) {
+    } catch (error: unknown) {
       logger.error("deleteTask error", error);
-      res
-        .status(500)
-        .json({error: error.message, returnCode: RETURN_CODES.GENERIC_ERROR});
+      res.status(500).json({
+        error: (error as Error).message,
+        returnCode: RETURN_CODES.GENERIC_ERROR,
+      });
     }
   }
 }

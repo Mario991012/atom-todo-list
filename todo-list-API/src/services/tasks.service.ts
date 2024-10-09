@@ -9,13 +9,15 @@ import {TaskModel} from "../common/interfaces/task.interface";
 
 export class TasksService {
   async getAllTasks() {
-    const tasks = await FirestoreService.getAll(
+    const tasks = await FirestoreService.getAll<TaskModel>(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION
     );
-    return mapTaskListResponse(tasks.filter((task: any) => !task.isDeleted));
+    return mapTaskListResponse(
+      tasks.filter((task: TaskModel) => !task.isDeleted)
+    );
   }
 
-  async createTask(task: any) {
+  async createTask(task: TaskModel) {
     const createdTask = (await FirestoreService.create(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
       task
@@ -23,7 +25,7 @@ export class TasksService {
     return mapCreatedTaskResponse(createdTask);
   }
 
-  async updateTask(id: string, updatedTask: any) {
+  async updateTask(id: string, updatedTask: TaskModel) {
     await FirestoreService.update(
       FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
       id,
@@ -33,11 +35,9 @@ export class TasksService {
   }
 
   async deleteTask(id: string) {
-    await FirestoreService.update(
-      FIRESTORE_COLLECTIONS.TASKS_COLLECTION,
-      id,
-      {isDeleted: true}
-    );
+    await FirestoreService.update(FIRESTORE_COLLECTIONS.TASKS_COLLECTION, id, {
+      isDeleted: true,
+    });
     return mapUpdatedTaskResponse();
   }
 }

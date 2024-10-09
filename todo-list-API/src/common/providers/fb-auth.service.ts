@@ -19,8 +19,8 @@ class AuthenticationService implements IAuthenticationService {
       const customToken = await auth.createCustomToken(userRecord.uid);
 
       return {user: userRecord, token: customToken};
-    } catch (error: any) {
-      throw new Error(`Error creating user: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`Error creating user: ${(error as Error).message}`);
     }
   }
 
@@ -40,8 +40,8 @@ class AuthenticationService implements IAuthenticationService {
       const customToken = await auth.createCustomToken(userRecord.uid, {email});
 
       return {user: userRecord, token: customToken};
-    } catch (error: any) {
-      throw new Error(`Error during login: ${error.message}`);
+    } catch (error: unknown) {
+      throw new Error(`Error during login: ${(error as Error).message}`);
     }
   }
 }

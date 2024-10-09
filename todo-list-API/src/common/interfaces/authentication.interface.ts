@@ -3,8 +3,8 @@ import {UserRecord} from "firebase-admin/lib/auth/user-record";
 export interface IAuthenticationService {
   createUser(
     email: string,
-  ): Promise<any>;
-  signIn(email: string): Promise<any>;
+  ): Promise<AuthenticationResponseModel>;
+  signIn(email: string): Promise<AuthenticationResponseModel>;
 }
 
 export interface AuthenticationResponseModel {

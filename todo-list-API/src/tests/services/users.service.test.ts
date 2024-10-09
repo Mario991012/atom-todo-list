@@ -1,4 +1,4 @@
-import UsersService from "../../services/users.service";
+import {UsersService} from "../../services/users.service";
 import {RETURN_CODES} from "../../common/constants/common";
 import {mapGenericError} from "../../common/mappers/generic-error.mapper";
 import {AuthenticationService} from "../../common/providers/fb-auth.service";

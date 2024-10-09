@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import UsersService from "../../services/users.service";
+import {UsersService} from "../../services/users.service";
 import {logger} from "firebase-functions/v2";
 import {UsersController} from "../../controllers/users.controller";
 
@@ -24,7 +24,7 @@ describe("UsersController", () => {
   beforeEach(() => {
     req = {};
     jsonMock = jest.fn();
-    statusMock = jest.fn(() => ({json: jsonMock})) as any;
+    statusMock = jest.fn(() => ({json: jsonMock})) as never;
     res = {
       status: statusMock,
     } as Partial<Response>;

@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import UsersService from "../services/users.service";
+import {UsersService} from "../services/users.service";
 import {mapGenericError} from "../common/mappers/generic-error.mapper";
 import {logger} from "firebase-functions/v2";
 
@@ -20,9 +20,9 @@ export class UsersController {
       const result = await this.usersService.createUser(email);
       logger.info("findUser Response", result);
       res.status(201).json(result);
-    } catch (error: any) {
+    } catch (error: unknown) {
       logger.info("findUser Response", error);
-      res.status(500).json({message: error.message});
+      res.status(500).json({message: (error as Error).message});
     }
   };
 
@@ -41,9 +41,14 @@ export class UsersController {
       const user = await this.usersService.findUserByEmail(email);
       logger.info("findUser Response", user);
       res.status(200).json(user);
-    } catch (error: any) {
-      logger.error("findUser Response", error);
-      res.status(404).json({message: error.message});
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error("findUser Response", error);
+        res.status(404).json({message: error.message});
+      } else {
+        logger.error("An unknown error occurred");
+        res.status(404).json({message: (error as Error).message});
+      }
     }
   };
 }

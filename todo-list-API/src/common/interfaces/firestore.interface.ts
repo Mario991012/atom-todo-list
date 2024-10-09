@@ -1,7 +1,7 @@
 import {DocumentData, WithFieldValue} from "firebase-admin/firestore";
 
 export interface IFirestoreService {
-  getAll(collection: string): Promise<any[]>;
+  getAll(collection: string): Promise<unknown[]>;
   create(
     collection: string,
     data: WithFieldValue<DocumentData>

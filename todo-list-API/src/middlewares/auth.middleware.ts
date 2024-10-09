@@ -19,13 +19,8 @@ export const verifyToken = async (
   try {
     await auth.verifyIdToken(token);
     next();
-  } catch (error: any) {
+  } catch (error: unknown) {
     logger.error("Error while verifying token", error);
-    if (error.code === "auth/id-token-expired") {
-      res
-        .status(401)
-        .json({message: "Token expired. Please refresh and try again."});
-    }
     res.status(401).json({message: "Invalid or expired token"});
   }
 };

@@ -22,6 +22,7 @@ module.exports = {
     "/dist/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
     "jest.config.js",
+    "/coverage/**/*", // Ignore coverage folder.
   ],
   plugins: ["@typescript-eslint", "import"],
   rules: {

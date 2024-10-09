@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {logger} from "firebase-functions/v2";
 import {TasksController} from "../../controllers/tasks.controller";
 import {RETURN_CODES} from "../../common/constants/common";
+// eslint-disable-next-line import/no-named-as-default
 import TasksService from "../../services/tasks.service";
 
 jest.mock("../../services/tasks.service");
@@ -22,7 +23,7 @@ describe("TasksController", () => {
   beforeEach(() => {
     req = {};
     jsonMock = jest.fn();
-    statusMock = jest.fn(() => ({json: jsonMock})) as any;
+    statusMock = jest.fn(() => ({json: jsonMock})) as never;
     res = {
       status: statusMock,
     } as Partial<Response>;
