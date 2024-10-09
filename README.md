@@ -38,8 +38,7 @@ You can access the live version of the To-do List App here:
 ![atom-todo-list-ezgif com-optimize](https://github.com/user-attachments/assets/a595c761-16b0-44ad-9405-f6bf93383509)
 
 ### Mobile view
-![atom-todo-list-mobile](https://github.com/user-attachments/assets/ca8a281d-c99f-4bcb-8f4f-84e965dad728)
-
+![atom-todo-list-mobile](https://github.com/user-attachments/assets/b67c1426-d431-438f-935d-0cb82ef8d3c9)
 
 ## Design Decisions
 - **Separation of Concerns**: The project follows a clear separation between frontend and backend responsibilities. This allows clean code as possible for better maintainability and easier scaling in the future. **For Atom's purposes these are included in the same repository and I would recommend to separate them in two repositories for a real use case.**
