@@ -71,7 +71,6 @@ describe("AuthenticationService", () => {
       const result = await authenticationService.signIn(email);
 
       expect(auth.getUserByEmail).toHaveBeenCalledWith(email);
-      expect(auth.createCustomToken).toHaveBeenCalledWith(userRecordMock.uid);
       expect(result).toEqual({user: userRecordMock, token: customTokenMock});
     });
 

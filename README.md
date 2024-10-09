@@ -3,10 +3,12 @@
 
 This repository contains the frontend and backend code for the To-do List application, a task management platform built with Angular 17, Angular Material, and a Node.js API that integrates Firebase with Firestore and Authentication. You will find details about the design decisions and technologies of this project, as well as the setup instructions.
 ## Table of Contents
-- [Atom Todo List App](#atom-todo-list-app)
+- [Todo List App](#todo-list-app)
   - [Table of Contents](#table-of-contents)
   - [Project Overview](#project-overview)
   - [Try the App](#try-the-app)
+    - [Desktop view](#desktop-view)
+    - [Mobile view](#mobile-view)
   - [Design Decisions](#design-decisions)
   - [Technologies Used](#technologies-used)
     - [Frontend](#frontend)
@@ -15,9 +17,11 @@ This repository contains the frontend and backend code for the To-do List applic
     - [Prerequisites](#prerequisites)
     - [Running the Backend](#running-the-backend)
     - [Running the Frontend](#running-the-frontend)
-  - [Build and Deployment](#build-and-deployment)
+  - [Build, Testing and Deployment](#build-testing-and-deployment)
     - [Building the Frontend](#building-the-frontend)
+    - [Testing the Frontend](#testing-the-frontend)
     - [Deploying the Frontend to Firebase](#deploying-the-frontend-to-firebase)
+    - [Testing the Backend](#testing-the-backend)
     - [Deploying the Backend](#deploying-the-backend)
 
 ## Project Overview
@@ -117,13 +121,20 @@ You can access the live version of the To-do List App here:
    ```
    The frontend will be available at `http://localhost:4200`.
 
-## Build and Deployment
+## Build, Testing and Deployment
 ### Building the Frontend
 To build the Angular application for production, run:
 ```bash
 npm run build:prod
 ```
 The build content will be stored in the `dist/` directory.
+
+### Testing the Frontend
+To run test suites of the Angular application, run:
+```bash
+ng test
+```
+This will open Google Chrome or similar browser and show the results.
 
 ### Deploying the Frontend to Firebase
 1. Ensure you are logged into Firebase:
@@ -134,6 +145,13 @@ The build content will be stored in the `dist/` directory.
    ```bash
    npm run deploy
    ```
+
+### Testing the Backend
+To run test suites of the Node.js API, run:
+```bash
+npm run test
+```
+This will show the tests in the bash or console.
 
 ### Deploying the Backend
 The backend can be hosted (and currently is) using Firebase Cloud Functions or other Node.js hosting services. If using Firebase:
