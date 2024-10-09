@@ -13,6 +13,7 @@ This repository contains the frontend and backend code for the To-do List applic
   - [Technologies Used](#technologies-used)
     - [Frontend](#frontend)
     - [Backend](#backend)
+  - [Important development information](#important-development-information)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Running the Backend](#running-the-backend)
@@ -61,6 +62,12 @@ You can access the live version of the To-do List App here:
 - **Jest**: Unit testing for controllers, providers and services.
 - **TypeScript**: For better code quality and maintainability.
 - **EsLint**: To maintain high code quality, catch common errors and enforce code style and best practices.
+
+## Important development information
+- The "delete task" is an update of the attribute "isDeleted" to avoid deleting information directly.
+- The Firestore database is configured as Native Firestore Database.
+- Firestore tasks collection has rules defined to allow only the write and read if the user is authenticated.
+- The API is configured to only work properly by "http://localhost:4200" and "https://atom-angular-todo.web.app". Outside these, the request will be blocked by CORS policy.
 
 ## Getting Started
 ### Prerequisites
