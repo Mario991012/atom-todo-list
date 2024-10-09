@@ -88,6 +88,7 @@ You can access the live version of the To-do List App here:
    ```
 3. Create a `.env` file in the `todo-list-API` directory with your Firebase service account credentials and other environment variables:
    ```
+    GOOGLE_APPLICATION_CREDENTIALS=your/path/to/credentials.json
     FIREBASE_PROJECT_ID=your-value
     FIREBASE_CLIENT_EMAIL=your-value
     FIREBASE_PRIVATE_KEY=your-value
@@ -108,6 +109,13 @@ You can access the live version of the To-do List App here:
     MESSAGING_SENDER_ID=your-value
     APP_ID=your-value
    ```
+   To use seamlessly Firebase from local, I recommend to:
+   1. Go to Firebase Console -> to Project Settings -> Service Accounts.
+   2. Download the private key.
+   3. Set the private key in the config folder.
+   4. Set the correct path of the credentials to GOOGLE_APPLICATION_CREDENTIALS.
+   5. Add the credentials filename to .gitignore
+
 4. Start the backend server:
    ```bash
    npm run start:local

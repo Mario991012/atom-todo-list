@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Custom extras
+atom-angular-todo-firebase-adminsdk-75rnl-3c1e91dfe5.json
