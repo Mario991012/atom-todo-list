@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
         } else {
           await this.tokenService.loginWithCustomToken(response.data.token);
           this.notificationService.showSuccess(`Login successful of ${response.data.email}`);
+          this.loading.set(false);
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
           }, 500);

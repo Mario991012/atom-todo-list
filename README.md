@@ -67,8 +67,8 @@ You can access the live version of the To-do List App here:
 - The "delete task" is an update of the attribute "isDeleted" to avoid deleting information directly.
 - The Firestore database is configured as Native Firestore Database.
 - Firestore tasks collection has rules defined to allow only the write and read if the user is authenticated.
-- The API is configured to only work properly by "http://localhost:4200" and "https://atom-angular-todo.web.app". Outside these, the request will be blocked by CORS policy.
-
+- The Node.js API is configured to only work properly by "http://localhost:4200" and "https://atom-angular-todo.web.app". Outside these, the request will be blocked by CORS policy.
+- The API Key used for Firebase is limited to only "http://localhost:4200" and "https://atom-angular-todo.web.app" to avoid the unauthorized use of this one in other projects, URL, etc.
 ## Getting Started
 ### Prerequisites
 - **Node.js** (version 18+)
