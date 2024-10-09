@@ -31,3 +31,9 @@
     color: #f44336;
   }
   
+
+  @media (max-width: 600px) {
+    .dialog-actions {
+      justify-content: center;
+    }
+  }
