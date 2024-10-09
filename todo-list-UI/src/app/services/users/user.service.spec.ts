@@ -15,7 +15,7 @@ describe('UsersService', () => {
 
   beforeEach(() => {
     tokenServiceSpy = jasmine.createSpyObj('TokenService', ['getToken', 'storeToken', 'removeToken', 'decodeToken']);
-    authSpy = jasmine.createSpyObj('Auth', ['signInWithCustomToken']); // Mock Auth if needed
+    authSpy = jasmine.createSpyObj('Auth', ['signInWithCustomToken']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

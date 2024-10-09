@@ -31,14 +31,12 @@ describe('DashboardComponent', () => {
   ];
 
   beforeEach(async () => {
-    // Mock TaskService methods
     taskServiceSpy = jasmine.createSpyObj('TaskService', ['getTasks', 'addTask', 'updateTask', 'deleteTask', 'toggleTaskCompletion']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    tokenServiceSpy = jasmine.createSpyObj('TokenService', ['getToken', 'removeToken', 'decodeToken']); // <-- Mock TokenService methods
+    tokenServiceSpy = jasmine.createSpyObj('TokenService', ['getToken', 'removeToken', 'decodeToken']);
     authSpy = jasmine.createSpyObj('Auth', ['signInWithCustomToken']);
 
-    // Ensure getTasks returns an observable of mock tasks
     taskServiceSpy.getTasks.and.returnValue(of(mockTasks));
 
     await TestBed.configureTestingModule({
@@ -87,7 +85,7 @@ describe('DashboardComponent', () => {
     component.filterTitle.set('Task 1');
     component.filterDescription.set('Description 1');
 
-    const filteredTasks = component.getTasksByStatus(false); // Get pending tasks
+    const filteredTasks = component.getTasksByStatus(false);
     expect(filteredTasks.length).toBe(1);
     expect(filteredTasks[0].title).toBe('Task 1');
     expect(filteredTasks[0].description).toBe('Description 1');

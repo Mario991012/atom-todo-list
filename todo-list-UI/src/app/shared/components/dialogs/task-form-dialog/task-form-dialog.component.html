@@ -1,33 +1,32 @@
 <div class="dialog-container">
-	<h1 mat-dialog-title>{{ data.title ? 'Edit Task' : 'New Task' }}</h1>
+  <h1 mat-dialog-title>{{ data.title ? 'Edit Task' : 'New Task' }}</h1>
 
-	<div mat-dialog-content>
-		<form [formGroup]="taskForm">
-			<!-- Task Title -->
-			<mat-form-field appearance="fill" class="full-width">
-				<mat-label>Task Title</mat-label>
-				<input matInput formControlName="title" placeholder="Enter task title" />
-				<mat-error *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
-					Title is required
-				</mat-error>
-			</mat-form-field>
+  <div mat-dialog-content>
+    <form [formGroup]="taskForm" class="form-container">
+      <!-- Task Title -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Task Title</mat-label>
+        <input matInput formControlName="title" placeholder="Enter task title" />
+        <mat-error *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+          Title is required
+        </mat-error>
+      </mat-form-field>
 
-			<!-- Task Description -->
-			<mat-form-field appearance="fill" class="full-width">
-				<mat-label>Description</mat-label>
-				<textarea matInput formControlName="description" placeholder="Enter task description"></textarea>
-				<mat-error *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched">
-					Description is required
-				</mat-error>
-			</mat-form-field>
-		</form>
-	</div>
+      <!-- Task Description -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" placeholder="Enter task description" />
+        <mat-error *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched">
+          Description is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
 
-	<div mat-dialog-actions class="dialog-actions">
-		<button mat-button color="warn" (click)="onCancel()">Cancel</button>
-
-		<button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="taskForm.invalid">
-			{{ data.title ? 'Update Task' : 'Add Task' }}
-		</button>
-	</div>
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="taskForm.invalid">
+      {{ data.title ? 'Update Task' : 'Add Task' }}
+    </button>
+  </div>
 </div>
