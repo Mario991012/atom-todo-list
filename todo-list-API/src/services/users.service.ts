@@ -24,13 +24,8 @@ export class UsersService {
       const result = await this.authService.createUser(email);
       return mapAuthResponse(result, RETURN_CODES.GENERIC_SUCCESS);
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        logger.error(`Error creating user: ${error.message}`);
-        return mapGenericError(error, RETURN_CODES.GENERIC_ERROR);
-      } else {
-        logger.error("An unknown error occurred");
-        return mapGenericError(error as Error, RETURN_CODES.GENERIC_ERROR);
-      }
+      logger.error("An unknown error occurred");
+      return mapGenericError(error as Error, RETURN_CODES.GENERIC_ERROR);
     }
   }
 
@@ -45,13 +40,8 @@ export class UsersService {
       const result = await this.authService.signIn(email);
       return mapAuthResponse(result, RETURN_CODES.GENERIC_SUCCESS);
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        logger.error(`User not found: ${error.message}`);
-        return mapGenericError(error, RETURN_CODES.GENERIC_ERROR);
-      } else {
-        logger.error("An unknown error occurred");
-        return mapGenericError(error as Error, RETURN_CODES.GENERIC_ERROR);
-      }
+      logger.error("An unknown error occurred");
+      return mapGenericError(error as Error, RETURN_CODES.GENERIC_ERROR);
     }
   }
 }
