@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'https://api-q2qsitwd6a-uc.a.run.app',
+  baseUrl: 'http://localhost:8080',
 	api: "/api",
 	users: "/users",
 	tasks: "/tasks",
