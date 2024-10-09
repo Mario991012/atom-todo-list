@@ -21,6 +21,8 @@
     </mat-form-field>
   </div>
 
+  <mat-progress-spinner *ngIf="loading()" mode="indeterminate" diameter="30"></mat-progress-spinner>
+
   <!-- Pending Tasks Board -->
   <app-task-board
     [title]="'Pending Tasks'"

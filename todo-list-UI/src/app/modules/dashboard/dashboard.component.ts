@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UsersService } from '../../services/users/user.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,12 +27,14 @@ import { UsersService } from '../../services/users/user.service';
     MatFormFieldModule,
     MatInputModule,
     NgOptimizedImage,
+    MatProgressSpinnerModule,
   ],
 })
 export class DashboardComponent {
   tasks = signal<Task[]>([]);
   filterTitle = signal<string>('');
   filterDescription = signal<string>('');
+  loading = signal(false);
 
   taskService = inject(TaskService);
   userService = inject(UsersService);
@@ -43,8 +46,10 @@ export class DashboardComponent {
   }
 
   loadTasks() {
+    this.loading.set(true);
     this.taskService.getTasks().subscribe((tasks) => {
       this.tasks.set(tasks);
+      this.loading.set(false);
     });
   }
 
