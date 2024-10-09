@@ -1,5 +1,5 @@
 
-# Atom Todo List App
+# Todo List App
 
 This repository contains the frontend and backend code for the To-do List application, a task management platform built with Angular 17, Angular Material, and a Node.js API that integrates Firebase with Firestore and Authentication. You will find details about the design decisions and technologies of this project, as well as the setup instructions.
 ## Table of Contents
@@ -28,6 +28,13 @@ The Todo List App is intended to offer the users an easy experience of managing 
 ## Try the App
 You can access the live version of the To-do List App here:
 [https://atom-angular-todo.web.app](https://atom-angular-todo.web.app)
+
+### Desktop view
+![atom-todo-list-ezgif com-optimize](https://github.com/user-attachments/assets/a595c761-16b0-44ad-9405-f6bf93383509)
+
+### Mobile view
+![atom-todo-list-mobile](https://github.com/user-attachments/assets/ca8a281d-c99f-4bcb-8f4f-84e965dad728)
+
 
 ## Design Decisions
 - **Separation of Concerns**: The project follows a clear separation between frontend and backend responsibilities. This allows clean code as possible for better maintainability and easier scaling in the future. **For Atom's purposes these are included in the same repository and I would recommend to separate them in two repositories for a real use case.**
